@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap");
+
+@theme {
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+
+  /* Surfaces - graphite, taken from the dark half of the mark */
+  --color-ink: #08090b;
+  --color-ink-2: #0e0f12;
+  --color-surface: #121317;
+  --color-surface-2: #18191e;
+  --color-surface-3: #202228;
+  --color-line: rgb(255 255 255 / 0.07);
+  --color-line-2: rgb(255 255 255 / 0.12);
+
+  /* Text */
+  --color-fg: #ececee;
+  --color-fg-2: #b4b6bd;
+  --color-mute: #7d808a;
+  --color-dim: #50535c;
+
+  /* Brand - amber arch + electric pillar */
+  --color-amber: #f59a23;
+  --color-amber-2: #ffb84d;
+  --color-ember: #d9650f;
+  --color-volt: #2a6bff;
+  --color-volt-2: #4fa3ff;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+        overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-ink);
+  }
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  :focus-visible {
+    outline: 1.5px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-stretch: 100%;
+  letter-spacing: -0.03em;
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.testimonial-quote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (width >= 48rem) {
+    padding-inline: 28px;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Card corner accent: a hairline white border that lights only the top-left and bottom-right corners,
+   following the card's own radius and fading out along the edges. Add `corner-hit` to any card, and set
+   `--shine` (e.g. `[--shine:220px]`) to make the lit corners longer on big cards or shorter on small ones. */
+.corner-hit {
+  position: relative;
+}
+.corner-hit::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    radial-gradient(var(--shine, 90px) var(--shine, 90px) at 0 0, rgb(255 255 255 / 0.95), transparent 100%),
+    radial-gradient(var(--shine, 90px) var(--shine, 90px) at 100% 100%, rgb(255 255 255 / 0.95), transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+/* Hover-only version of the accent: invisible at rest, a faint corner shine while hovered.
+   Use together with `corner-hit`; `--shine-hover` sets the peak opacity (default 0.28). */
+.corner-hit-hover::before {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.corner-hit-hover:hover::before {
+  opacity: var(--shine-hover, 0.28);
+}
+
+/* Fine film grain over the whole page - keeps flat graphite from looking digital */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Beam pulse: a short amber dash travelling along a path normalised with pathLength="1" */
+@keyframes beam-run {
+  from { stroke-dashoffset: 0.16; }
+  to { stroke-dashoffset: -1; }
+}
