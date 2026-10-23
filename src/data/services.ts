@@ -268,27 +268,27 @@ export const servicesDetail: ServiceDetail[] = [
     title: 'Motion & 3D Video',
     group: 'Grow',
     icon: '/icons/3d.svg',
-    tagline: 'Launch films and renders',
-    intro: 'Launch films, product renders and brand motion made by the same team that builds the product.',
+    tagline: '3D animation, video and editing',
+    intro: '3D animation, video production and editing for content, ads and campaigns, made by the same team that builds the product.',
     stats: [
-      { value: '120+', label: 'Films delivered' },
+      { value: '120+', label: 'Videos delivered' },
       { value: '4K', label: 'Final output' },
       { value: '3 wks', label: 'Typical turnaround' },
     ],
     deliverables: [
       { title: 'Concept & script', desc: 'A story that explains the product fast.' },
       { title: 'Product renders', desc: 'Photoreal 3D stills and turntables.' },
-      { title: 'Launch films', desc: '30–90 second films for launch day.' },
+      { title: 'Ad & campaign videos', desc: 'Short videos for ads, campaigns and content.' },
       { title: 'UI animation', desc: 'Product walkthroughs and interface motion.' },
-      { title: 'Social cutdowns', desc: 'Vertical and square edits for every channel.' },
+      { title: 'Video editing', desc: 'Clean cuts, captions and vertical or square edits for every channel.' },
       { title: 'Sound design', desc: 'Music, voiceover and mix.' },
     ],
     stack: ['Cinema 4D', 'Blender', 'Octane', 'After Effects', 'Premiere Pro', 'Figma', 'Spline', 'Rive'],
     faqs: [
       { q: 'Do you need a physical product to render?', a: 'No. We can work from CAD files, photos or detailed references.' },
-      { q: 'How many revisions are included?', a: 'Two rounds at each stage: script, styleframes and final cut.' },
+      { q: 'How many revisions are included?', a: 'Two rounds at each stage: script, styleframes and final edit.' },
       { q: 'Can we reuse assets in ads?', a: 'Yes. You get project files and cutdowns sized for each platform.' },
-      { q: 'How long does a launch film take?', a: 'Usually four to six weeks from brief to final delivery.' },
+      { q: 'How long does a video project take?', a: 'Usually two to six weeks, depending on length and how much 3D work is involved.' },
       { q: 'Can you make 2D and 3D versions?', a: 'Yes. We deliver both, sized for web, social and events.' },
     ],
     caseIndex: 1,
@@ -389,8 +389,32 @@ export const serviceIcons: Record<string, string> = Object.fromEntries(servicesD
 
 export const serviceBySlug = (slug?: string) => servicesDetail.find((s) => s.slug === slug)
 
-export const serviceMedia = (slug: string) => ({
-  hero: `/media/services/${slug}-hero.jpg`,
-  showcase: `/media/services/${slug}-showcase.jpg`,
-  card: (n: number) => `/media/services/cards/${slug}-${n}.jpg`,
-})
+export const serviceMedia = (slug: string) => {
+  const generatedServices = [
+    'custom-software',
+    'web-applications',
+    'mobile-apps',
+    'e-commerce',
+    'ai-automation',
+    'ai-agents',
+    'integrations',
+    'data-analytics',
+    'motion-3d-video',
+    'brand-identity',
+    'performance-marketing',
+    'content-social',
+  ]
+  if (generatedServices.includes(slug)) {
+    return {
+      hero: `/media/services/${slug}/hero.webp`,
+      showcase: `/media/services/${slug}/hero.webp`,
+      card: (n: number) => `/media/services/${slug}/features/${n}.webp`,
+    }
+  }
+
+  return {
+    hero: `/media/services/${slug}-hero.webp`,
+    showcase: `/media/services/${slug}-showcase.webp`,
+    card: (n: number) => `/media/services/cards/${slug}-${n}.webp`,
+  }
+}

@@ -23,11 +23,11 @@ export default function Faq({
           <SectionHead tag="FAQ" title={title} titleMuted={titleMuted} />
           <Reveal delay={0.1}>
             <div className="corner-hit [--shine:56px] inline-flex self-start items-stretch gap-0 rounded-[16px] border border-line-2 bg-ink/70 p-2 backdrop-blur-md">
-              <img src={media.clarissa} alt="Clarissa, ENUVOR Partnerships" className="w-[88px] h-[100px] shrink-0 rounded-[10px] object-cover object-center" />
+              <video src={media.clarissaVideo} poster={media.clarissa} autoPlay loop muted playsInline aria-label="Clarissa, ENUVOR client partnership" className="w-[88px] h-[100px] shrink-0 rounded-[10px] object-cover object-center" />
               <div className="flex flex-1 flex-col justify-center gap-3 py-1 pl-2 pr-1">
                 <div>
                   <p className="text-[15px] leading-tight">Talk to Clarissa</p>
-                  <p className="label mt-1 text-mute">Partnerships</p>
+                  <p className="label mt-1 text-mute">Client partnership</p>
                 </div>
                 <Button variant="light" className="h-9! self-start pl-3! text-[13px] [&>span]:size-6!">
                   Book a 20-min call

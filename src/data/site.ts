@@ -32,7 +32,7 @@ export const servicesMenu: MenuGroup[] = [
   {
     heading: 'Grow',
     links: [
-      { title: 'Motion & 3D Video', desc: 'Launch films and renders', href: '/services/motion-3d-video' },
+      { title: 'Motion & 3D Video', desc: '3D animation and video editing', href: '/services/motion-3d-video' },
       { title: 'Brand Identity', desc: 'Naming and design systems', href: '/services/brand-identity' },
       { title: 'Performance Marketing', desc: 'Paid, SEO and lifecycle', href: '/services/performance-marketing' },
       { title: 'Content & Social', desc: 'Posts, reels, campaigns', href: '/services/content-social' },
@@ -122,8 +122,8 @@ export const work = [
     year: '2026',
     sector: 'E-commerce',
     client: 'Lumen&Co',
-    title: 'Headless storefront and a launch film to match',
-    desc: 'New storefront, product renders and a 40-second launch film delivered as one coordinated release.',
+    title: 'Headless storefront and launch videos to match',
+    desc: 'New storefront, product renders and a 40-second launch video delivered as one coordinated release.',
     stats: [
       { value: '2.3x', label: 'Conversion rate' },
       { value: '1.1s', label: 'Median page load' },
@@ -236,7 +236,7 @@ export const pricing = {
         'Up to 3 workstreams',
         'Web, mobile and backend',
         'AI automation and integrations',
-        'Launch film and brand assets',
+        'Video edits and brand assets',
         '30 days optimization support',
       ],
     },

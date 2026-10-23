@@ -1,11 +1,11 @@
 import { Building2, Layers, Package, ShieldCheck, type LucideIcon } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useState } from 'react'
+import CountUp from '@/components/bits/CountUp'
 import { Check, Reveal, SectionHead, cx } from '@/components/ui'
 import { pricing } from '@/data/site'
 
 const icons: Record<string, LucideIcon> = { Starter: Package, Growth: Layers, Enterprise: Building2 }
-const EASE = [0.16, 1, 0.3, 1] as const
 
 export default function Pricing() {
   const [yearly, setYearly] = useState(false)
@@ -62,15 +62,10 @@ export default function Pricing() {
                 <p className="mt-2 text-[13.5px] text-mute">{plan.desc}</p>
 
                 <p className="mt-7 flex items-baseline gap-1.5">
-                  <motion.span
-                    key={String(yearly)}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, ease: EASE }}
-                    className="font-display text-[44px] leading-none font-[480] tabular-nums"
-                  >
-                    ${price(plan.monthly).toLocaleString('en-US')}
-                  </motion.span>
+                  <span className="font-display flex items-baseline text-[44px] leading-none font-[480] tabular-nums">
+                    {/* keyed on the billing period so the figure rolls again when it changes */}
+                    <CountUp key={String(yearly)} to={price(plan.monthly)} prefix="$" separator="," duration={yearly ? 1.2 : 2} mode="roll" />
+                  </span>
                   <span className="text-[14px] text-mute">/mo</span>
                 </p>
 

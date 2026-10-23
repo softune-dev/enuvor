@@ -31,7 +31,7 @@ function useAutoplayAllowed() {
 }
 
 const Photo = ({ n, size }: { n: number; size: number }) => (
-  <img src={`/media/people/p${n}.jpg`} alt="" draggable={false} className="rounded-full object-cover" style={{ width: size, height: size }} />
+  <img src={`/media/people/p${n}.webp`} alt="" draggable={false} className="rounded-full object-cover" style={{ width: size, height: size }} />
 )
 
 /** Beams drawn as one SVG: each leaves its node horizontally, bends in the middle, and lands horizontally. */
@@ -716,7 +716,7 @@ void GrowthStage
 const stages: ReactNode[] = [<PlanStage key="a" />, <BuildStage key="b" />, <LaunchGrowthStage key="c" />]
 
 // Discover uses bg-1 and Launch uses bg-2 behind their stages; Design & build stays on the plain surface.
-const backdrops: (string | undefined)[] = ['/media/bg-1.jpg', undefined, '/media/bg-2.jpg']
+const backdrops: (string | undefined)[] = ['/media/bg-1.webp', undefined, '/media/bg-2.webp']
 
 const NOISE = "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")"
 
@@ -803,7 +803,7 @@ export default function Process() {
                         <span className="mt-5 flex flex-col">
                           {d.items.map((it, k) => (
                             <span key={it} className="label flex items-center gap-3 border-t border-line py-2 text-fg-2">
-                              <img src={`/media/apps/${d.icons[k]}.png`} alt="" className="size-6 shrink-0 object-contain" />
+                              <img src={`/media/apps/${d.icons[k]}.webp`} alt="" className="size-6 shrink-0 object-contain" />
                               {it}
                             </span>
                           ))}

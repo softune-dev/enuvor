@@ -51,7 +51,7 @@ export default function Hero() {
           </ul>
           <div className="hidden md:block">
             <AnimatedText preset="fade" speed={4} delay={0.5} className="max-w-[34ch] text-[17px] leading-[1.45] text-fg-2">
-              A product company that also builds for others, software, apps, AI and launch films, made by one team.
+              A product company that also builds for others, software, apps, AI, 3D animation and video, made by one team.
             </AnimatedText>
           </div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }} className="md:hidden">
@@ -71,7 +71,7 @@ export default function Hero() {
             </h1>
             <div className="md:hidden">
               <AnimatedText preset="fade" speed={4} delay={0.5} className="mx-auto max-w-[40ch] text-center text-[15px] leading-relaxed text-mute">
-                A product company that also builds for others, software, apps, AI and launch films.
+                A product company that also builds for others, software, apps, AI, 3D animation and video.
               </AnimatedText>
             </div>
           </div>
@@ -82,11 +82,11 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.7, ease: EASE }}
             className="corner-hit inline-flex self-center items-stretch gap-0 rounded-[16px] border border-line-2 bg-ink/70 p-2 backdrop-blur-md md:self-end"
           >
-            <img src={media.clarissa} alt="Clarissa, ENUVOR Partnerships" className="w-[88px] h-[100px] shrink-0 rounded-[10px] object-cover object-center" />
+            <video src={media.clarissaVideo} poster={media.clarissa} autoPlay loop muted playsInline aria-label="Clarissa, ENUVOR client partnership" className="w-[88px] h-[100px] shrink-0 rounded-[10px] object-cover object-center" />
             <div className="flex flex-1 flex-col justify-center gap-3 py-1 pl-2 pr-1">
               <div>
                 <p className="text-[15px] leading-tight">Talk to Clarissa</p>
-                <p className="label mt-1 text-mute">Partnerships</p>
+                <p className="label mt-1 text-mute">Client partnership</p>
               </div>
               <Button variant="light" className="h-9! self-start pl-3! text-[13px] [&>span]:size-6!">
                 Book a 20-min call

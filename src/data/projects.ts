@@ -1,5 +1,5 @@
 // Portfolio shown on /work. `services` uses the slugs from src/data/services.ts.
-// Images live at /public/media/work/<slug>.jpg — replace a file with the same name to swap it.
+// Images live at /public/media/work/<slug>.webp — replace a file with the same name to swap it.
 
 export type Project = {
   slug: string
@@ -29,8 +29,8 @@ export const projects: Project[] = [
   {
     slug: 'lumen-co',
     client: 'Lumen&Co',
-    title: 'Headless storefront with a launch film to match',
-    summary: 'New store, product renders and a 40-second film shipped as one coordinated release.',
+    title: 'Headless storefront with launch videos to match',
+    summary: 'New store, product renders and a 40-second video shipped as one coordinated release.',
     year: '2026',
     sector: 'E-commerce',
     services: ['e-commerce', 'motion-3d-video'],
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     slug: 'monolith',
     client: 'Monolith',
     title: 'A 3D launch for industrial hardware',
-    summary: 'Photoreal renders and a launch film built from CAD files, cut for every channel.',
+    summary: 'Photoreal renders and a launch video built from CAD files, cut for every channel.',
     year: '2024',
     sector: 'Manufacturing',
     services: ['motion-3d-video'],
@@ -149,4 +149,4 @@ export const projects: Project[] = [
   },
 ]
 
-export const projectImage = (slug: string) => `/media/work/${slug}.jpg`
+export const projectImage = (slug: string) => `/media/work/${slug}.webp`

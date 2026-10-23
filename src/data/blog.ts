@@ -1,5 +1,5 @@
 // Posts for /blog and /blog/:slug. These are placeholders; replace them with real articles.
-// Cover images live in /public/media/blog/<slug>.jpg; replace a file with the same name to swap it.
+// Cover images live in /public/media/blog/<slug>.webp; replace a file with the same name to swap it.
 
 export type Post = {
   slug: string
@@ -73,15 +73,15 @@ export const posts: Post[] = [
     ],
   },
   {
-    slug: 'launch-films',
-    title: 'What makes a launch film work',
+    slug: 'product-videos',
+    title: 'What makes a product video work',
     excerpt: 'Motion that explains the product in thirty seconds, without a voice-over.',
     category: 'Motion',
     date: '2026-07-29',
     readTime: '4 min',
     author,
     body: [
-      { text: 'A good launch film shows one idea clearly. Everything else is decoration.' },
+      { text: 'A good product video shows one idea clearly. Everything else is decoration.' },
       { heading: 'Script the screen', text: 'We write the sequence of UI states before any 3D or motion work begins.' },
     ],
   },
@@ -104,7 +104,7 @@ export const blogCategories = ['All', ...Array.from(new Set(posts.map((p) => p.c
 
 export const postBySlug = (slug?: string) => posts.find((p) => p.slug === slug)
 
-export const postCover = (slug: string) => `/media/blog/${slug}.jpg`
+export const postCover = (slug: string) => `/media/blog/${slug}.webp`
 
 export const formatDate = (d: string) =>
   new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })

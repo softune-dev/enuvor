@@ -41,11 +41,11 @@ export default function ContactPage() {
               transition={{ duration: 0.9, delay: 0.8, ease: EASE }}
               className="corner-hit [--shine:56px] inline-flex items-stretch rounded-[16px] border border-line-2 bg-surface p-2"
             >
-              <img src={media.clarissa} alt="Clarissa, ENUVOR Partnerships" className="h-[100px] w-[88px] shrink-0 rounded-[10px] object-cover object-center" />
+              <video src={media.clarissaVideo} poster={media.clarissa} autoPlay loop muted playsInline aria-label="Clarissa, ENUVOR client partnership" className="h-[100px] w-[88px] shrink-0 rounded-[10px] object-cover object-center" />
               <div className="flex flex-1 flex-col justify-center gap-3 py-1 pl-3 pr-1">
                 <div>
                   <p className="text-[15px] leading-tight">Talk to Clarissa</p>
-                  <p className="label mt-1 text-mute">Partnerships</p>
+                  <p className="label mt-1 text-mute">Client partnership</p>
                 </div>
                 <Button variant="light" href={`mailto:${company.email}?subject=Book a call`} className="h-9! self-start pl-3! text-[13px] [&>span]:size-6!">
                   Book a 20-min call

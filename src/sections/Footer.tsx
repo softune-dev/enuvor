@@ -61,7 +61,7 @@ export default function Footer() {
       <Cta />
       <footer className="relative overflow-hidden pt-16 md:pt-20">
         <div className="container-x">
-          {/* Brand block + 3D slot (swap /media/footer-3d.png or set footer3dVideo) */}
+          {/* Brand block + 3D slot (swap /media/footer-3d.webp or set footer3dVideo) */}
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div className="flex flex-col gap-5">
               <div className="flex items-center gap-3">
