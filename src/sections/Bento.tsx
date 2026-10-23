@@ -16,7 +16,7 @@ import ServerTerminal from '@/sections/ServerTerminal'
 
 /** App icons from /public/media/apps (the icon pack you supplied). Replace a file to change an icon. */
 const Icon3D = ({ name, size }: { name: string; size: number }) => (
-  <img src={`/media/apps/${name}.png`} alt="" width={size} height={size} draggable={false} className="shrink-0 object-contain" style={{ width: size, height: size }} />
+  <img src={`/media/apps/${name}.webp`} alt="" width={size} height={size} draggable={false} className="shrink-0 object-contain" style={{ width: size, height: size }} />
 )
 
 const events = [
@@ -41,7 +41,7 @@ const topics = [
   { label: 'AI agent', icon: 'tips' },
   { label: 'Automation', icon: 'home' },
   { label: 'Online store', icon: 'store' },
-  { label: 'Launch film', icon: 'videos' },
+  { label: 'Video editing', icon: 'videos' },
   { label: 'Brand', icon: 'photos' },
   { label: 'Dashboards', icon: 'numbers' },
 ]
@@ -155,7 +155,7 @@ type Person = keyof typeof people
 function Avatar({ who, size = 22 }: { who: Person; size?: number }) {
   return (
     <img
-      src={`/media/people/${people[who]}.jpg`}
+      src={`/media/people/${people[who]}.webp`}
       alt={who}
       width={size}
       height={size}

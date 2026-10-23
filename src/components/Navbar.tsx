@@ -269,13 +269,6 @@ function StatusDot({ meta }: { meta?: string }) {
   )
 }
 
-function ImageBox({ src, href, className }: { src: string; href: string; className?: string }) {
-  return (
-    <a href={href} className={cx('relative block min-h-[200px] overflow-hidden rounded-[12px] border border-line bg-surface', className)}>
-      <img src={src} alt="" className="absolute inset-0 h-full w-full rounded-[inherit] object-cover" />
-    </a>
-  )
-}
 
 function PanelLabel({ children }: { children: ReactNode }) {
   return <p className="label px-2.5 pb-1 pt-1 text-[10px]! text-dim">{children}</p>
@@ -283,7 +276,7 @@ function PanelLabel({ children }: { children: ReactNode }) {
 
 function ServicesPanel() {
   return (
-    <div className="grid w-[950px] grid-cols-[1fr_1fr_1fr_170px] gap-3 p-3">
+    <div className="grid w-[950px] grid-cols-3 gap-3 p-3">
       {servicesMenu.map((g) => (
         <div key={g.heading} className="flex flex-col">
           <PanelLabel>{g.heading}</PanelLabel>
@@ -302,7 +295,6 @@ function ServicesPanel() {
           })}
         </div>
       ))}
-      <ImageBox src={media.menuServices} href="#services" />
     </div>
   )
 }

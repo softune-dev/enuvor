@@ -1,6 +1,10 @@
+import { Code2, Layers, Workflow, Gauge, type LucideIcon } from 'lucide-react'
 import { AnimatedText, Button, Reveal, SectionHead } from '@/components/ui'
 import { media } from '@/config/media'
 import { services } from '@/data/site'
+
+// One icon per feature row, in the order each service lists its items
+const rowIcons: LucideIcon[] = [Code2, Layers, Workflow, Gauge]
 
 export default function Services() {
   return (
@@ -24,16 +28,21 @@ export default function Services() {
                 <article className="corner-hit relative grid gap-2 rounded-[22px] border border-line bg-surface p-2 md:grid-cols-[1fr_40%]">
                   <div className="flex flex-col gap-8 p-4 md:p-6">
                     <div>
-                      <span className="label text-amber">/ 0{i + 1}</span>
                       <AnimatedText as="h3" className="font-display mt-4 text-[28px] leading-[1.05] font-[500] md:text-[32px]">{s.title}</AnimatedText>
                       <AnimatedText as="p" className="mt-2 text-[15px] text-mute">{s.sub}</AnimatedText>
                     </div>
                     <ul className="flex flex-col">
-                      {s.items.map((it) => (
-                        <li key={it} className="label border-t border-line py-3 text-fg-2 last:pb-0">
-                          {it}
-                        </li>
-                      ))}
+                      {s.items.map((it, k) => {
+                        const Icon = rowIcons[k % rowIcons.length]
+                        return (
+                          <li key={it} className="label flex items-center gap-3 border-t border-line py-3 text-fg-2 last:pb-0">
+                            <span className="grid size-7 shrink-0 place-items-center rounded-[8px] border border-line bg-surface-2 text-amber">
+                              <Icon className="size-3.5" strokeWidth={1.8} />
+                            </span>
+                            {it}
+                          </li>
+                        )
+                      })}
                     </ul>
                   </div>
                   <div className="pointer-events-none absolute inset-y-4 right-4 hidden w-[35%] overflow-hidden md:flex md:items-center md:justify-center">

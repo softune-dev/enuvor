@@ -2,12 +2,12 @@ import { motion } from 'motion/react'
 import OrbitImages from '@/components/bits/OrbitImages'
 
 const lifecycleIcons = [
-  { src: '/media/process-icons/launch.png', alt: 'Go live' },
-  { src: '/media/process-icons/monitor.png', alt: 'Monitor' },
-  { src: '/media/process-icons/improve.png', alt: 'Maintain' },
-  { src: '/media/process-icons/roadmap.png', alt: 'Roadmap' },
-  { src: '/media/process-icons/grow.png', alt: 'Grow' },
-  { src: '/media/process-icons/schedule.png', alt: 'Schedule' },
+  { src: '/media/process-icons/launch.webp', alt: 'Go live' },
+  { src: '/media/process-icons/monitor.webp', alt: 'Monitor' },
+  { src: '/media/process-icons/improve.webp', alt: 'Maintain' },
+  { src: '/media/process-icons/roadmap.webp', alt: 'Roadmap' },
+  { src: '/media/process-icons/grow.webp', alt: 'Grow' },
+  { src: '/media/process-icons/schedule.webp', alt: 'Schedule' },
 ]
 
 export default function LaunchGrowthStage() {

@@ -1,5 +1,5 @@
 // Content for /about. Team names, roles and bios are placeholders — replace them with your real team.
-// Photos live in /public/media/about/team/member-N.jpg; replace a file with the same name to swap it.
+// Photos live in /public/media/about/team/member-N.webp; replace a file with the same name to swap it.
 
 export const aboutIntro =
   'ENUVOR is a product company that also builds for others. We run our own SaaS, and we bring the same care to every client platform, app, automation and launch.'
@@ -108,7 +108,7 @@ export const team: TeamMember[] = [
   },
   {
     name: 'Team Member',
-    role: 'Motion Director',
+    role: 'Motion & 3D Lead',
     bio: '3D & motion design.',
     linkedin: '#',
     x: '#',
@@ -123,7 +123,7 @@ export const studio = {
 }
 
 export const aboutMedia = {
-  hero: '/media/about/hero.jpg',
-  studio: '/media/about/studio.jpg',
-  member: (n: number) => `/media/about/team/member-${n}.jpg`,
+  hero: '/media/about/hero.webp',
+  studio: '/media/about/studio.webp',
+  member: (n: number) => `/media/about/team/member-${n}.webp`,
 }

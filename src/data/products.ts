@@ -112,6 +112,6 @@ export const productsDetail: ProductDetail[] = [
 export const productBySlug = (slug?: string) => productsDetail.find((p) => p.slug === slug)
 
 export const productMedia = (slug: string) => ({
-  hero: `/media/products/${slug}-hero.jpg`,
-  card: (n: number) => `/media/products/cards/${slug}-${n}.jpg`,
+  hero: `/media/products/${slug}-hero.webp`,
+  card: (n: number) => `/media/products/cards/${slug}-${n}.webp`,
 })

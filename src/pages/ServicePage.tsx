@@ -97,9 +97,9 @@ function ServiceHero({ s }: { s: ServiceDetail }) {
           <div className="aspect-[4/3] overflow-hidden rounded-[16px]">
             <img src={img.hero} alt={s.title} className="h-full w-full object-cover" />
           </div>
-          <div className="absolute bottom-5 left-5 flex items-center gap-2 bg-ink/70 px-3 py-2 backdrop-blur">
+          <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-ink/60 px-3 py-1.5 backdrop-blur-md">
             <span className="size-1.5 rounded-full bg-amber" />
-            <span className="label text-fg-2">{s.tagline}</span>
+            <span className="text-[13px] text-fg">{s.tagline}</span>
           </div>
         </motion.div>
       </div>
@@ -131,16 +131,16 @@ function Deliverables({ s }: { s: ServiceDetail }) {
         {s.deliverables.map((d, i) => (
           <Reveal key={d.title} delay={(i % 2) * 0.08}>
             <article className="corner-hit [--shine:80px] group grid h-[192px] grid-cols-[140px_1fr] gap-2 rounded-[18px] border border-line bg-surface p-2 transition-colors duration-300 hover:border-line-2 sm:grid-cols-[190px_1fr]">
-              <div className="relative overflow-hidden rounded-[12px] bg-surface-2">
+              <div className="relative flex items-center justify-center overflow-hidden rounded-[12px] bg-ink">
                 <img
                   src={serviceMedia(s.slug).card(i + 1)}
                   alt=""
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100"
+                  className="max-h-[74%] max-w-[74%] object-contain transition-opacity duration-500 sm:max-h-[74%] sm:max-w-[74%]"
                 />
               </div>
               <div className="flex min-w-0 flex-col justify-center gap-2.5 px-3 py-2 md:px-5">
-                <span className="label text-amber">/ 0{i + 1}</span>
+                <span className="font-['Playfair_Display',serif] block text-[20px] italic leading-none text-amber sm:text-[24px]">0{i + 1}</span>
                 <AnimatedText as="h3" className="font-display text-[clamp(1.35rem,2.1vw,1.75rem)] leading-[1.05] font-[500]">
                   {d.title}
                 </AnimatedText>
