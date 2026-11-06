@@ -1,16 +1,33 @@
-// Product pages at /products/:slug. Names, copy and stats are placeholders; edit them here.
-// Images live in /public/media/products; replace a file with the same name to swap it.
+// Product pages at /products/:slug. Products are named by the job they do.
+// `menuName` is the short label for the navbar; `name` is the title used on the landing section and the page.
+// Market facts come from public vendor and industry reports; edit any copy here.
 
 export type ProductDetail = {
   slug: string
+  /** Old URLs that should still open this product. */
+  aliases?: string[]
   name: string
+  menuName: string
+  /** Placeholder image set in /public/media/products, e.g. 'product-two' for product-two-hero.webp. */
+  imageKey: string
   status: string
   category: string
   tagline: string
+  /** One line for cards. */
+  blurb: string
+  /** A few words for the navbar menu. */
+  menuDesc: string
   intro: string
   url?: string
+  /** What the product is, in plain words. */
+  about: string[]
+  problem: { title: string; lead: string; points: { title: string; desc: string }[] }
   stats: { value: string; label: string }[]
-  features: { title: string; desc: string }[]
+  features: { title: string; desc: string; icon: string }[]
+  pros: string[]
+  cons: string[]
+  /** Quick facts shown as a table: stage, market, pricing, why now, alternatives. */
+  facts: { label: string; value: string }[]
   audience: string[]
   steps: { title: string; desc: string }[]
   faqs: { q: string; a: string }[]
@@ -18,100 +35,89 @@ export type ProductDetail = {
 
 export const productsDetail: ProductDetail[] = [
   {
-    slug: 'softunebd',
-    name: 'SoftuneBD',
+    slug: 'ai-ecommerce-platform',
+    aliases: ['softunebd', 'ai-business-suite'],
+    name: 'AI E-commerce Platform',
+    menuName: 'E-commerce',
+    menuDesc: 'Online store platform',
+    imageKey: 'softunebd',
     status: 'Live',
-    category: 'Software company',
-    tagline: 'Platforms used every day',
+    category: 'Online store platform',
+    tagline: 'Sell online, built for Bangladesh',
+    blurb: 'A complete platform for running an online store: products, orders, payments and delivery.',
     intro:
-      'Our first company and the proving ground for how ENUVOR builds. Enterprise software, platforms and services used across Bangladesh and beyond.',
-    url: '#',
+      'Our first product, live since 2021. A complete platform for running an online store: your storefront, products, orders, payments and delivery, all managed from one place.',
+    url: 'https://softunebd.com',
+    about: [
+      'AI E-commerce Platform gives a business everything it needs to sell online. Customers browse the storefront, place orders and pay. Your team manages products, stock, orders and delivery from a single dashboard.',
+      'It is built and run by the ENUVOR team, and has been live since 2021. It is made for how selling online works in Bangladesh, with local payment and delivery options in mind.',
+    ],
+    problem: {
+      title: 'Selling online is harder than it looks',
+      lead: 'Many businesses start on social media pages and chat messages, then struggle as orders grow.',
+      points: [
+        { title: 'Orders scattered across chats', desc: 'Orders arrive in messages and comments, so some get missed and nobody has one clear list of what to ship.' },
+        { title: 'Stock and prices out of sync', desc: 'Without one catalog, items are sold that are already out of stock, and prices differ between channels.' },
+        { title: 'Payment and delivery by hand', desc: 'Confirming payments and arranging couriers one order at a time takes hours every day.' },
+      ],
+    },
     stats: [
       { value: '2021', label: 'Launched' },
-      { value: '60+', label: 'Business clients' },
-      { value: '99.9%', label: 'Platform uptime' },
+      { value: 'Live', label: 'In production today' },
+      { value: 'BD', label: 'Built for Bangladesh' },
     ],
     features: [
-      { title: 'ERP and operations', desc: 'Inventory, accounts, HR and payroll in one system, set up around how each business works.' },
-      { title: 'Custom platforms', desc: 'Portals, dashboards and internal tools built on the same core as our own products.' },
-      { title: 'Managed hosting', desc: 'Monitoring, backups and updates handled by the team that wrote the code.' },
-      { title: 'Local support', desc: 'A support desk in Dhaka that answers in hours, not days.' },
+      { title: 'Online storefront', desc: 'A fast, mobile-friendly store where customers browse and order.', icon: 'Store' },
+      { title: 'Products and stock', desc: 'One catalog with prices, variants and stock levels that stay in sync.', icon: 'Boxes' },
+      { title: 'Orders and checkout', desc: 'A simple checkout, and one list of every order with its status.', icon: 'ShoppingCart' },
+      { title: 'Payments and delivery', desc: 'Local payment methods and courier options for getting orders to customers.', icon: 'Truck' },
+      { title: 'Customers and offers', desc: 'Customer accounts, order history, discounts and promotions.', icon: 'Users' },
+      { title: 'Sales reports', desc: 'See what sells, what is running low and how the store is doing.', icon: 'BarChart3' },
     ],
-    audience: ['Growing SMEs', 'Retail and distribution', 'Education', 'Healthcare providers'],
+    pros: [
+      'Everything for selling online in one platform',
+      'One catalog, so stock and prices stay consistent',
+      'Orders, payments and delivery managed in one place',
+      'Built and supported by the team that made it',
+      'Live and in use since 2021',
+    ],
+    cons: [
+      'Built for online selling, not a full back-office system',
+      'Best for stores that sell mainly in Bangladesh',
+      'Custom integrations are quoted separately',
+    ],
+    facts: [
+      { label: 'Stage', value: 'Live since 2021' },
+      { label: 'Best for', value: 'Businesses that want to sell online with their own store' },
+      { label: 'Pricing', value: 'Quoted in writing after a short call about your store' },
+      { label: 'Alternatives', value: 'Social media selling, Shopify, WooCommerce, custom-built stores' },
+    ],
+    audience: ['Online shops', 'Retail brands', 'Fashion and lifestyle sellers', 'Growing home businesses'],
     steps: [
-      { title: 'Talk to us', desc: 'A short call to understand how your team works today.' },
-      { title: 'Configure', desc: 'We set up modules, roles and data around your process.' },
-      { title: 'Go live', desc: 'Training, migration and a calm switch-over.' },
-      { title: 'Grow', desc: 'New modules and improvements as your business grows.' },
+      { title: 'Talk to us', desc: 'A short call about what you sell and how you sell today.' },
+      { title: 'Set up', desc: 'We add your products, payments and delivery options.' },
+      { title: 'Go live', desc: 'Launch your store with training for your team.' },
+      { title: 'Grow', desc: 'Add offers, channels and features as sales grow.' },
     ],
     faqs: [
-      { q: 'Is SoftuneBD part of ENUVOR?', a: 'Yes. SoftuneBD is our first company and is owned and run by ENUVOR.' },
-      { q: 'Can it work with our existing tools?', a: 'Most of the time, yes. We connect to common accounting, payment and messaging services.' },
-      { q: 'How is it priced?', a: 'A setup fee and a monthly plan based on modules and users. You get a written quote first.' },
+      { q: 'Is it part of ENUVOR?', a: 'Yes. It is our first product, built and run by ENUVOR.' },
+      { q: 'Can I move my existing products over?', a: 'Yes. We can import your product list and customer data when we set up your store.' },
+      { q: 'How is it priced?', a: 'You get a written quote after a short call about your store.' },
     ],
-  },
-  {
-    slug: 'product-two',
-    name: 'Product Two',
-    status: 'In development',
-    category: 'Operations SaaS',
-    tagline: 'Beyond spreadsheets',
-    intro: 'A focused workspace for teams that have outgrown spreadsheets but not their budget.',
-    stats: [
-      { value: '2026', label: 'Private beta' },
-      { value: '12', label: 'Pilot teams' },
-      { value: '5 min', label: 'Average setup' },
-    ],
-    features: [
-      { title: 'Tables that think', desc: 'Familiar grids with relations, validation and history built in.' },
-      { title: 'Workflows', desc: 'Approvals, reminders and hand-offs without writing a line of code.' },
-      { title: 'Live dashboards', desc: 'Numbers that update as the work happens, shareable in one link.' },
-      { title: 'AI assistant', desc: 'Ask questions about your data in plain language.' },
-    ],
-    audience: ['Operations teams', 'Agencies', 'Small finance teams', 'Field services'],
-    steps: [
-      { title: 'Join the waitlist', desc: 'Leave your email and tell us about your team.' },
-      { title: 'Import', desc: 'Bring in your spreadsheets in a few clicks.' },
-      { title: 'Automate', desc: 'Turn repeated steps into workflows.' },
-      { title: 'Share', desc: 'Give everyone the view they need.' },
-    ],
-    faqs: [
-      { q: 'When does it launch?', a: 'Public launch is planned after the current beta. Waitlist members get access first.' },
-      { q: 'Can I join the beta?', a: 'Yes. Email us and we will add your team to the next cohort.' },
-    ],
-  },
-  {
-    slug: 'product-three',
-    name: 'Product Three',
-    status: 'Planned · 2027',
-    category: 'Commerce intelligence',
-    tagline: 'One view for merchants',
-    intro: 'Inventory, pricing and demand signals for independent merchants, in one view.',
-    stats: [
-      { value: '2027', label: 'Planned launch' },
-      { value: '3', label: 'Data sources at launch' },
-      { value: 'Daily', label: 'Signal refresh' },
-    ],
-    features: [
-      { title: 'Stock signals', desc: 'Know what will run out before it does.' },
-      { title: 'Pricing insight', desc: 'See how your prices compare and where margin is hiding.' },
-      { title: 'Demand forecasts', desc: 'Simple forecasts you can act on, not a data science project.' },
-      { title: 'Store connectors', desc: 'Works with the commerce platforms merchants already use.' },
-    ],
-    audience: ['Independent retailers', 'D2C brands', 'Marketplace sellers'],
-    steps: [
-      { title: 'Connect', desc: 'Link your store and sales channels.' },
-      { title: 'Learn', desc: 'We build a picture of your catalogue and demand.' },
-      { title: 'Act', desc: 'Get clear, weekly recommendations.' },
-      { title: 'Measure', desc: 'Track what each change did to revenue.' },
-    ],
-    faqs: [{ q: 'Can I get early access?', a: 'Email us. We are talking to merchants now to shape the first version.' }],
   },
 ]
 
-export const productBySlug = (slug?: string) => productsDetail.find((p) => p.slug === slug)
+export const productBySlug = (slug?: string) => productsDetail.find((p) => p.slug === slug || p.aliases?.includes(slug ?? ''))
 
-export const productMedia = (slug: string) => ({
-  hero: `/media/products/${slug}-hero.webp`,
-  card: (n: number) => `/media/products/cards/${slug}-${n}.webp`,
+const productLandingImages: Record<string, string> = {
+  softunebd: '/media/product-01.webp',
+  'product-two': '/media/product-02.webp',
+  'product-three': '/media/product-03.webp',
+  'product-four': '/media/product-04.webp',
+}
+
+export const productMedia = (key: string) => ({
+  hero: productLandingImages[key] ?? `/media/products/${key}-hero.webp`,
+  /** Each product has six transparent feature visuals in its own folder. */
+  card: (n: number) => `/media/products/${key}/features/${n}.webp`,
 })

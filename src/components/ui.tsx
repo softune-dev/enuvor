@@ -67,6 +67,7 @@ export function Button({ children, href = '/contact', variant = 'dark', classNam
   return (
     <a
       href={href}
+      {...(/^https?:/.test(href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={cx(
         'group inline-flex h-11 items-center gap-3 rounded-[10px] pl-4 pr-1.5 text-[14px] font-medium tracking-[-0.01em] transition-colors duration-300',
         variant === 'light'

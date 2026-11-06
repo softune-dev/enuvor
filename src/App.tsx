@@ -8,6 +8,7 @@ import { lenisRef, scrollToHash } from '@/lib/lenis'
 import Home from '@/pages/Home'
 import ServicePage from '@/pages/ServicePage'
 import WorkPage from '@/pages/WorkPage'
+import ProjectPage from '@/pages/ProjectPage'
 import AboutPage from '@/pages/AboutPage'
 import BlogPage from '@/pages/BlogPage'
 import ContactPage from '@/pages/ContactPage'
@@ -84,6 +85,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services/:slug" element={<ServicePage />} />
           <Route path="/work" element={<WorkPage />} />
+          <Route path="/work/:slug" element={<ProjectPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products/:slug" element={<ProductPage />} />
           <Route path="/blog" element={<BlogPage />} />

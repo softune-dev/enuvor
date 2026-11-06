@@ -225,7 +225,7 @@ function MorphSurface({ active, dir }: { active: MenuKey; dir: number }) {
         <motion.div
           key={active}
           custom={dir}
-          className="absolute left-0 top-0 w-max"
+          className="absolute inset-0 flex items-start justify-center"
           variants={{
             enter: (d: number) => ({ opacity: 0, x: d * 48 }),
             center: { opacity: 1, x: 0 },
@@ -259,30 +259,21 @@ function Measured({ onSize, children }: { onSize: (w: number, h: number) => void
   return <div ref={ref}>{children}</div>
 }
 
-function StatusDot({ meta }: { meta?: string }) {
-  if (!meta) return null
-  return (
-    <span className="label flex items-center gap-1 text-[9.5px]! text-mute">
-      <span className={cx('size-1 rounded-full', meta === 'Live' ? 'bg-amber' : meta === 'Building' ? 'bg-volt-2' : 'bg-dim')} />
-      {meta}
-    </span>
-  )
-}
-
-
 function PanelLabel({ children }: { children: ReactNode }) {
   return <p className="label px-2.5 pb-1 pt-1 text-[10px]! text-dim">{children}</p>
 }
 
 function ServicesPanel() {
   return (
-    <div className="grid w-[950px] grid-cols-3 gap-3 p-3">
-      {servicesMenu.map((g) => (
-        <div key={g.heading} className="flex flex-col">
-          <PanelLabel>{g.heading}</PanelLabel>
-          {g.links.map((l) => {
-            return (
-              <a key={l.title} href={l.href} className="corner-hit corner-hit-hover [--shine:44px] group flex items-start gap-3 rounded-[10px] p-2.5 transition-colors duration-200 hover:bg-white/[0.04]">
+    <div className="grid w-[950px] grid-cols-3">
+      {servicesMenu.map((g, gi) => (
+        <div key={g.heading} className={cx('flex flex-col pb-2 pt-3', gi < servicesMenu.length - 1 && 'border-r border-line')}>
+          <div className="px-3 pb-2">
+            <PanelLabel>{g.heading}</PanelLabel>
+          </div>
+          {g.links.map((l) => (
+            <div key={l.title} className="border-t border-line px-3 py-1">
+              <a href={l.href} className="corner-hit corner-hit-hover [--shine:44px] group flex items-start gap-3 rounded-[10px] p-2.5 transition-colors duration-200 hover:bg-white/[0.04]">
                 <span className="grid size-9 shrink-0 place-items-center rounded-[8px] border border-line bg-surface text-fg-2 transition-colors group-hover:text-amber">
                   <ServiceIcon src={serviceIcons[l.title]} className="size-[22px]" />
                 </span>
@@ -291,38 +282,30 @@ function ServicesPanel() {
                   <span className="whitespace-nowrap text-[12.5px] leading-[1.2] text-mute">{l.desc}</span>
                 </span>
               </a>
-            )
-          })}
+            </div>
+          ))}
         </div>
       ))}
     </div>
   )
 }
 
-/** Products: app-store style tiles with status, plus a portfolio counter. */
+/** Products: one product, shown with the same row design as the Services menu. */
 function ProductsPanel() {
   return (
-    <div className="grid w-[720px] grid-cols-[1fr_1fr_1fr_150px] gap-2 p-2">
+    <div className="w-[340px] p-3">
+      <PanelLabel>SaaS</PanelLabel>
       {productsMenu.map((p, i) => (
-        <a key={p.title} href={p.href} className="group flex flex-col overflow-hidden rounded-[12px] border border-line bg-surface transition-colors duration-300 hover:border-line-2">
-          <div className="aspect-square overflow-hidden">
-            <img src={media.products[i]} alt="" className="h-full w-full object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
-          </div>
-          <div className="flex flex-col gap-2 p-3">
-            <p className="font-display text-[16px] leading-none font-[500]">{p.title}</p>
-            <StatusDot meta={p.meta} />
-          </div>
+        <a key={p.title} href={p.href} className="corner-hit corner-hit-hover [--shine:44px] group flex items-start gap-3 rounded-[10px] p-2.5 transition-colors duration-200 hover:bg-white/[0.04]">
+          <span className="size-9 shrink-0 overflow-hidden rounded-[8px] border border-line bg-surface">
+            <img src={media.products[i]} alt="" className="h-full w-full object-cover" />
+          </span>
+          <span className="flex flex-col pt-px">
+            <span className="text-[14px] leading-[1.2] text-fg">{p.title}</span>
+            <span className="whitespace-nowrap text-[12.5px] leading-[1.2] text-mute">{p.desc}</span>
+          </span>
         </a>
       ))}
-      <a href="#products" className="group flex flex-col justify-between rounded-[12px] bg-fg p-4 text-ink">
-        <span className="label text-ink/60">Portfolio</span>
-        <div>
-          <p className="font-display text-[56px] leading-none font-[500]">{productsMenu.length}</p>
-          <p className="mt-2 flex items-center gap-1 text-[13px]">
-            View all <Chevron className="size-3 transition-transform duration-300 group-hover:translate-x-0.5" />
-          </p>
-        </div>
-      </a>
     </div>
   )
 }

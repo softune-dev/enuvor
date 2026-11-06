@@ -1,5 +1,6 @@
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ArrowRight } from 'lucide-react'
 import { useSearchParams } from 'react-router'
 import CountUp from '@/components/bits/CountUp'
 import PageShell from '@/components/PageShell'
@@ -22,7 +23,7 @@ export default function WorkPage() {
 
   const [featured, ...rest] = projects
   const shown = useMemo(
-    () => (active === 'all' ? rest : rest.filter((p) => p.services.includes(active))),
+    () => (active === 'all' ? rest : projects.filter((p) => p.services.includes(active))),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [active],
   )
@@ -66,10 +67,10 @@ export default function WorkPage() {
           </span>
         </div>
 
-        <motion.div layout className={cx('grid grid-cols-1 gap-3 [grid-auto-flow:dense] md:grid-cols-2', active === 'all' ? 'xl:grid-cols-4' : 'xl:grid-cols-3')}>
+        <motion.div layout className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
           <AnimatePresence mode="popLayout" initial={false}>
             {shown.map((p, i) => (
-              <ProjectCard key={p.slug} p={p} size={active === 'all' ? p.size : 'even'} index={i} />
+              <ProjectCard key={p.slug} p={p} index={i} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -181,7 +182,7 @@ function WorkHero() {
   const sectors = new Set(projects.map((p) => p.sector)).size
   const services = new Set(projects.flatMap((p) => p.services)).size
   const stats = [
-    { to: projects.length, label: 'Projects shown' },
+    { to: projects.length, label: 'Projects' },
     { to: sectors, label: 'Industries' },
     { to: services, label: 'Services involved' },
   ]
@@ -211,7 +212,7 @@ function WorkHero() {
             </AnimatedText>
           </h1>
           <AnimatedText preset="fade" speed={4} delay={0.7} className="max-w-[48ch] text-[17px] leading-relaxed text-mute">
-            Products, platforms, automations and launches we have built for teams across industries. Filter by service to see the work closest to yours.
+            Products, platforms and websites we have built and shipped. Open any project to see what it does, then visit it live.
           </AnimatedText>
         </div>
 
@@ -233,31 +234,33 @@ function WorkHero() {
 function Featured({ p }: { p: Project }) {
   return (
     <section className="container-x mt-14">
-      <motion.article
+      <motion.a
+        href={`/work/${p.slug}`}
         initial={{ opacity: 0, clipPath: 'inset(6% 4% 6% 4% round 22px)' }}
         animate={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 22px)' }}
         transition={{ duration: 1.1, delay: 0.5, ease: EASE }}
-        className="corner-hit [--shine:280px] relative rounded-[22px] border border-line bg-surface p-2"
+        className={cx('corner-hit [--shine:280px] group grid gap-2 rounded-[22px] border border-line bg-surface p-2 transition-colors duration-500 hover:border-line-2', p.wide ? 'lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]' : 'lg:grid-cols-[1fr_minmax(0,540px)]')}
       >
-        <div className="aspect-[4/5] overflow-hidden rounded-[16px] sm:aspect-[21/9]">
-          <img src={projectImage(p.slug)} alt={p.client} className="h-full w-full object-cover" />
-        </div>
-        <div className="pointer-events-none absolute inset-2 rounded-[16px] bg-gradient-to-t from-ink/95 via-ink/30 to-transparent" />
-        <div className="absolute inset-x-2 bottom-2 flex flex-col gap-6 p-5 md:flex-row md:items-end md:justify-between md:p-9">
+        <div className="flex flex-col justify-between gap-10 p-6 md:p-10">
+          <p className="label flex items-center gap-2 text-fg-2">
+            <span className="size-1.5 rounded-full bg-amber" /> Featured · {p.year} · {p.sector}
+          </p>
           <div className="max-w-[46ch]">
-            <p className="label flex items-center gap-2 text-fg-2">
-              <span className="size-1.5 rounded-full bg-amber" /> Featured · {p.year} · {p.sector}
-            </p>
-            <p className="font-display mt-4 text-[20px] font-[600] tracking-[-0.02em]! text-fg-2">{p.client}</p>
-            <h2 className="font-display mt-2 text-[clamp(1.8rem,3.6vw,3rem)] leading-[1.02] font-[480]">{p.title}</h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-fg-2">{p.summary}</p>
+            <h2 className="font-display text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1] font-[480]">{p.name}</h2>
+            <p className="font-display mt-4 text-[clamp(1.2rem,2vw,1.6rem)] leading-[1.15] text-fg-2">{p.title}</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-mute">{p.summary}</p>
           </div>
-          <div className="shrink-0">
-            <p className="font-display text-[clamp(2.4rem,4vw,3.4rem)] leading-none font-[480] text-amber">{p.result.value}</p>
-            <p className="label mt-2 text-fg-2">{p.result.label}</p>
-          </div>
+          <span className="flex w-fit items-center gap-3 rounded-full border border-line-2 bg-surface-2 py-1.5 pr-1.5 pl-5 text-[14px] text-fg-2 transition-colors duration-300 group-hover:border-amber/50 group-hover:text-fg">
+            View project
+            <span className="grid size-8 place-items-center rounded-full bg-fg text-ink transition-colors duration-300 group-hover:bg-amber">
+              <ArrowRight className="size-4" strokeWidth={2.25} />
+            </span>
+          </span>
         </div>
-      </motion.article>
+        <div className={cx('overflow-hidden rounded-[16px]', p.wide ? 'aspect-[16/10]' : 'aspect-square')}>
+          <img src={p.wide ?? projectImage(p.slug)} alt={p.name} className="h-full w-full object-cover" />
+        </div>
+      </motion.a>
     </section>
   )
 }
@@ -302,78 +305,27 @@ function FilterChip({
   )
 }
 
-type CardSize = Project['size'] | 'even'
-
-const sizeClass: Record<CardSize, string> = {
-  lg: 'md:col-span-2 xl:row-span-2',
-  md: 'md:col-span-2',
-  sm: '',
-  even: '',
-}
-const imageClass: Record<CardSize, string> = {
-  lg: 'min-h-[260px] flex-1 xl:min-h-[360px]',
-  md: 'min-h-[240px] flex-1',
-  sm: 'min-h-[200px] flex-1',
-  even: 'aspect-[16/10]',
-}
-const shineClass: Record<CardSize, string> = {
-  lg: '[--shine:220px]',
-  md: '[--shine:150px]',
-  sm: '[--shine:100px]',
-  even: '[--shine:130px]',
-}
-
-function ProjectCard({
-  p,
-  size,
-  index,
-}: {
-  p: Project
-  size: CardSize
-  index: number
-}) {
+function ProjectCard({ p, index }: { p: Project; index: number }) {
   return (
-    <motion.article
+    <motion.a
       layout
+      href={`/work/${p.slug}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.55, delay: Math.min(index, 8) * 0.04, ease: EASE } }}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       transition={{ layout: { duration: 0.55, ease: EASE } }}
-      className={cx(
-        'corner-hit group flex flex-col rounded-[20px] border border-line bg-surface p-2 transition-colors duration-500 hover:border-line-2',
-        sizeClass[size],
-        shineClass[size],
-      )}
+      className="corner-hit [--shine:130px] group flex flex-col rounded-[20px] border border-line bg-surface p-2 transition-colors duration-500 hover:border-line-2"
     >
-      <div className={cx('relative overflow-hidden rounded-[14px] bg-surface-2', imageClass[size])}>
-        <img
-          src={projectImage(p.slug)}
-          alt={p.client}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100"
-        />
+      <div className="aspect-square overflow-hidden rounded-[14px] bg-surface-2">
+        <img src={projectImage(p.slug)} alt={p.name} loading="lazy" className="h-full w-full object-cover" />
       </div>
-
-      <div className="flex shrink-0 flex-col gap-4 p-3 md:p-4">
-        <div className="label flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-mute">
-          <span>
-            {p.year} · {p.sector}
-          </span>
-          <span className="text-fg-2">{p.client}</span>
+      <div className="flex items-center justify-between gap-4 p-4">
+        <div className="min-w-0">
+          <h3 className="font-display text-[20px] leading-none font-[500]">{p.name}</h3>
+          <p className="mt-2 truncate text-[13.5px] text-mute">{p.title}</p>
         </div>
-        <div>
-          <h3 className={cx('font-display leading-[1.08] font-[480]', size === 'sm' ? 'text-[20px]' : 'text-[clamp(1.4rem,2.2vw,1.9rem)]')}>
-            {p.title}
-          </h3>
-          {size !== 'sm' && <p className="mt-2 max-w-[52ch] text-[14.5px] leading-relaxed text-mute">{p.summary}</p>}
-        </div>
-        <div className="flex flex-col gap-3 border-t border-line pt-4">
-          <div className="flex items-baseline justify-between gap-3">
-            <p className="label text-[10px]! text-mute">{p.result.label}</p>
-            <p className="font-display text-[22px] leading-none font-[500] text-fg">{p.result.value}</p>
-          </div>
-        </div>
+        <span className="label shrink-0 text-dim">{p.year}</span>
       </div>
-    </motion.article>
+    </motion.a>
   )
 }

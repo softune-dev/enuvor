@@ -1,3 +1,4 @@
+import { productsDetail } from '@/data/products'
 // All landing-page copy lives here so it can be edited without touching layout code.
 
 export const company = {
@@ -40,11 +41,14 @@ export const servicesMenu: MenuGroup[] = [
   },
 ]
 
-export const productsMenu: MenuLink[] = [
-  { title: 'SoftuneBD', desc: 'Our flagship software company and platform suite', href: '/products/softunebd', meta: 'Live' },
-  { title: 'Product Two', desc: 'Operations SaaS for growing teams', href: '/products/product-two', meta: 'Building' },
-  { title: 'Product Three', desc: 'Commerce intelligence for merchants', href: '/products/product-three', meta: '2027' },
-]
+const statusMeta = (status: string) => (status === 'Live' ? 'Live' : status.startsWith('In') ? 'Building' : status.replace('Planned · ', ''))
+
+export const productsMenu: MenuLink[] = productsDetail.map((p) => ({
+  title: p.menuName,
+  desc: p.menuDesc,
+  href: `/products/${p.slug}`,
+  meta: statusMeta(p.status),
+}))
 
 export const companyMenu: MenuLink[] = [
   { title: 'Our team', desc: 'Meet the people behind ENUVOR', href: '/about#team' },
@@ -59,29 +63,15 @@ export const clients = ['Northwind', 'Halcyon', 'Kestrel', 'Lumen&Co', 'Parallax
 export const manifesto =
   'Most agencies ship a project and leave. We run our own SaaS products, so we build every client system the way we build ours, measured, maintained and made to compound long after launch.'
 
-export const products = [
-  {
-    name: 'SoftuneBD',
-    status: 'Live',
-    category: 'Software company',
-    desc: 'Our first company and the proving ground for how ENUVOR builds: enterprise software, platforms and services used across Bangladesh and beyond.',
-    href: '/products/softunebd',
-  },
-  {
-    name: 'Product Two',
-    status: 'In development',
-    category: 'Operations SaaS',
-    desc: 'A focused workspace for teams that have outgrown spreadsheets but not their budget.',
-    href: '/products/product-two',
-  },
-  {
-    name: 'Product Three',
-    status: 'Planned · 2027',
-    category: 'Commerce intelligence',
-    desc: 'Inventory, pricing and demand signals for independent merchants, in one view.',
-    href: '/products/product-three',
-  },
-]
+export const products = productsDetail.map((p) => ({
+  name: p.name,
+  status: p.status,
+  category: p.category,
+  desc: p.blurb,
+  href: `/products/${p.slug}`,
+  url: p.url,
+  imageKey: p.imageKey,
+}))
 
 export const services = [
   {
@@ -103,42 +93,6 @@ export const services = [
     title: 'Motion & Marketing',
     sub: 'Make the launch as good as the product.',
     items: ['3D & motion video', 'Brand identity systems', 'Performance marketing', 'Content & social'],
-  },
-]
-
-export const work = [
-  {
-    year: '2026',
-    sector: 'Fintech',
-    client: 'Atlas Pay',
-    title: 'A merchant dashboard that replaced four tools',
-    desc: 'We rebuilt onboarding, payouts and reporting into a single web app, then automated reconciliation end to end.',
-    stats: [
-      { value: '62%', label: 'Faster onboarding' },
-      { value: '4→1', label: 'Tools consolidated' },
-    ],
-  },
-  {
-    year: '2026',
-    sector: 'E-commerce',
-    client: 'Lumen&Co',
-    title: 'Headless storefront and launch videos to match',
-    desc: 'New storefront, product renders and a 40-second launch video delivered as one coordinated release.',
-    stats: [
-      { value: '2.3x', label: 'Conversion rate' },
-      { value: '1.1s', label: 'Median page load' },
-    ],
-  },
-  {
-    year: '2025',
-    sector: 'Logistics',
-    client: 'Kestrel',
-    title: 'An AI agent that handles dispatch questions',
-    desc: 'Trained on routes, SLAs and history, the agent now resolves most driver and customer queries without a human.',
-    stats: [
-      { value: '71%', label: 'Queries auto-resolved' },
-      { value: '30h', label: 'Saved every week' },
-    ],
   },
 ]
 

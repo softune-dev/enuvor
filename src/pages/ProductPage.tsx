@@ -1,10 +1,11 @@
+import { X } from 'lucide-react'
 import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { useRef } from 'react'
 import { useParams } from 'react-router'
 import NotFound from '@/pages/NotFound'
 import CountUp from '@/components/bits/CountUp'
 import PageShell from '@/components/PageShell'
-import { AnimatedText, Button, Chevron, Reveal, SectionHead, Tag } from '@/components/ui'
+import { AnimatedText, Button, Check, Chevron, Reveal, SectionHead, Tag, cx } from '@/components/ui'
 import { productBySlug, productMedia, productsDetail, type ProductDetail } from '@/data/products'
 import Faq from '@/sections/Faq'
 
@@ -18,7 +19,11 @@ export default function ProductPage() {
   return (
     <PageShell>
       <ProductHero p={product} />
+      <About p={product} />
+      <Problem p={product} />
       <Features p={product} />
+      <ProsCons p={product} />
+      <Facts p={product} />
       <Steps p={product} />
       <Audience p={product} />
       <Faq items={product.faqs} title={`${product.name},`} titleMuted="explained." />
@@ -84,10 +89,10 @@ function ProductHero({ p }: { p: ProductDetail }) {
             className="flex flex-wrap gap-3"
           >
             {live && p.url ? (
-              <Button variant="light" href={p.url}>Visit {p.name}</Button>
+              <Button variant="light" href={p.url}>Visit {new URL(p.url).hostname.replace(/^www\./, '')}</Button>
             ) : (
               <Button variant="light" href={`mailto:hello@enuvor.com?subject=${encodeURIComponent(p.name + ' early access')}`}>
-                Get early access
+                Join the early list
               </Button>
             )}
             <Button href="/contact">Talk to us</Button>
@@ -101,11 +106,11 @@ function ProductHero({ p }: { p: ProductDetail }) {
           className="corner-hit [--shine:220px] relative rounded-[22px] border border-line bg-surface p-2"
         >
           <div className="aspect-[4/3] overflow-hidden rounded-[16px]">
-            <img src={productMedia(p.slug).hero} alt={p.name} className="h-full w-full object-cover" />
+            <img src={productMedia(p.imageKey).hero} alt={p.name} className="h-full w-full object-cover" />
           </div>
-          <div className="absolute bottom-5 left-5 flex items-center gap-2 bg-ink/70 px-3 py-2 backdrop-blur">
+          <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-ink/60 px-3 py-1.5 backdrop-blur-md">
             <span className="size-1.5 rounded-full bg-amber" />
-            <span className="label text-fg-2">{p.tagline}</span>
+            <span className="text-[13px] text-fg">{p.tagline}</span>
           </div>
         </motion.div>
       </div>
@@ -124,6 +129,106 @@ function ProductHero({ p }: { p: ProductDetail }) {
   )
 }
 
+function About({ p }: { p: ProductDetail }) {
+  return (
+    <section className="container-x py-20 md:py-28">
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <SectionHead tag="What it is" title={`${p.name}, in plain words.`} />
+        <div className="flex flex-col gap-6">
+          {p.about.map((t, i) => (
+            <Reveal key={i} delay={i * 0.08}>
+              <p className="text-[clamp(1.05rem,1.5vw,1.25rem)] leading-relaxed text-fg-2">{t}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Problem({ p }: { p: ProductDetail }) {
+  return (
+    <section className="border-y border-line py-20 md:py-28">
+      <div className="container-x">
+        <div className="mb-12 max-w-[60ch] md:mb-16">
+          <SectionHead tag="The problem" title={p.problem.title} desc={p.problem.lead} />
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          {p.problem.points.map((pt, i) => (
+            <Reveal key={pt.title} delay={i * 0.08}>
+              <article className="corner-hit [--shine:80px] flex h-full flex-col gap-4 rounded-[18px] border border-line bg-surface p-6">
+                <span className="font-['Playfair_Display',serif] text-[28px] italic leading-none text-amber">0{i + 1}</span>
+                <h3 className="font-display text-[22px] leading-[1.1] font-[500]">{pt.title}</h3>
+                <p className="text-[15px] leading-relaxed text-mute">{pt.desc}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ProsCons({ p }: { p: ProductDetail }) {
+  return (
+    <section className="container-x py-20 md:py-28">
+      <SectionHead tag="Honest view" title="What it does well, and where it falls short." className="mb-12" />
+      <div className="grid gap-3 md:grid-cols-2">
+        <Reveal>
+          <div className="corner-hit [--shine:120px] h-full rounded-[18px] border border-line bg-surface p-6 md:p-8">
+            <p className="label mb-6 text-amber">Strengths</p>
+            <ul className="flex flex-col gap-4">
+              {p.pros.map((t) => (
+                <li key={t} className="flex items-start gap-3 text-[15px] leading-snug text-fg-2">
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-amber/15">
+                    <Check ok />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <div className="h-full rounded-[18px] border border-line bg-surface p-6 md:p-8">
+            <p className="label mb-6 text-mute">Limits to know about</p>
+            <ul className="flex flex-col gap-4">
+              {p.cons.map((t) => (
+                <li key={t} className="flex items-start gap-3 text-[15px] leading-snug text-mute">
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border border-[#ff5d5d]/40 bg-[#ff5d5d]/10">
+                    <X className="size-3 text-[#ff5d5d]" strokeWidth={2.2} />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Facts({ p }: { p: ProductDetail }) {
+  return (
+    <section className="container-x pb-20 md:pb-28">
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <SectionHead tag="At a glance" title="The facts, quickly." desc="Stage, market, pricing and what it competes with." />
+        <Reveal>
+          <dl className="corner-hit [--shine:120px] rounded-[18px] border border-line bg-surface">
+            {p.facts.map((f, i) => (
+              <div key={f.label} className={cx('grid gap-1 p-5 sm:grid-cols-[150px_1fr] sm:gap-6 md:px-7', i > 0 && 'border-t border-line')}>
+                <dt className="label text-mute">{f.label}</dt>
+                <dd className="text-[15px] leading-relaxed text-fg-2">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
 function Features({ p }: { p: ProductDetail }) {
   return (
     <section className="container-x py-20 md:py-28">
@@ -137,16 +242,16 @@ function Features({ p }: { p: ProductDetail }) {
         {p.features.map((f, i) => (
           <Reveal key={f.title} delay={(i % 2) * 0.08}>
             <article className="corner-hit [--shine:80px] group grid h-[192px] grid-cols-[140px_1fr] gap-2 rounded-[18px] border border-line bg-surface p-2 transition-colors duration-300 hover:border-line-2 sm:grid-cols-[190px_1fr]">
-              <div className="relative overflow-hidden rounded-[12px] bg-surface-2">
+              <div className="relative flex items-center justify-center overflow-hidden rounded-[12px] bg-ink">
                 <img
-                  src={productMedia(p.slug).card(i + 1)}
+                  src={productMedia(p.imageKey).card(i + 1)}
                   alt=""
                   loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100"
+                  className="max-h-[74%] max-w-[74%] object-contain transition-opacity duration-500 sm:max-h-[74%] sm:max-w-[74%]"
                 />
               </div>
               <div className="flex min-w-0 flex-col justify-center gap-2.5 px-3 py-2 md:px-5">
-                <span className="label text-amber">/ 0{i + 1}</span>
+                <span className="font-['Playfair_Display',serif] block text-[20px] italic leading-none text-amber sm:text-[24px]">0{i + 1}</span>
                 <AnimatedText as="h3" className="font-display text-[clamp(1.35rem,2.1vw,1.75rem)] leading-[1.05] font-[500]">
                   {f.title}
                 </AnimatedText>
@@ -223,10 +328,11 @@ function Audience({ p }: { p: ProductDetail }) {
 
 function Others({ p }: { p: ProductDetail }) {
   const others = productsDetail.filter((x) => x.slug !== p.slug)
+  if (!others.length) return null
   return (
     <section className="container-x py-20 md:py-28">
       <SectionHead tag="Portfolio" title="More from ENUVOR" className="mb-12" />
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-3">
         {others.map((o, i) => (
           <Reveal key={o.slug} delay={i * 0.06}>
             <a
@@ -234,7 +340,7 @@ function Others({ p }: { p: ProductDetail }) {
               className="corner-hit [--shine:80px] group flex h-full flex-col rounded-[18px] border border-line bg-surface p-2 transition-colors duration-300 hover:border-line-2"
             >
               <div className="aspect-[16/9] overflow-hidden rounded-[12px]">
-                <img src={productMedia(o.slug).hero} alt="" loading="lazy" className="h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100" />
+                <img src={productMedia(o.imageKey).hero} alt="" loading="lazy" className="h-full w-full object-cover opacity-85 transition-opacity duration-500 group-hover:opacity-100" />
               </div>
               <div className="flex items-center justify-between gap-4 p-4">
                 <div>

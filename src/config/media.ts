@@ -18,7 +18,20 @@ export const media = {
   menuServices: '/media/menu-services.webp', // right-hand image in the Services dropdown, ~480×640
   showreel: '/media/showreel.mp4',
   showreelPoster: '/media/showreel-poster.webp',
-  products: ['/media/product-01.webp', '/media/product-02.webp', '/media/product-03.webp'],
+  // Landing product cards keep their wide hero mockups.
+  products: [
+    '/media/product-01.webp',
+    '/media/product-02.webp',
+    '/media/product-03.webp',
+    '/media/product-04.webp',
+  ],
+  // Compact transparent visuals used only by the Products navbar panel.
+  productsMenu: [
+    '/media/products/menu/softunebd.webp',
+    '/media/products/menu/product-two.webp',
+    '/media/products/menu/product-three.webp',
+    '/media/products/menu/product-four.webp',
+  ],
   work: ['/media/work-01.webp', '/media/work-02.webp', '/media/work-03.webp'],
   services: ['/media/service-01.webp', '/media/service-02.webp', '/media/service-03.webp', '/media/service-04.webp'],
   serviceComponents: [
